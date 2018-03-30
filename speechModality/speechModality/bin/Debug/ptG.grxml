@@ -3,7 +3,7 @@
   <rule id="rootRule" scope="public">
     <example>4 mais | menos | vezes | a dividir | por 2</example>
     <example> soma | divide | subtrai | multiplica 4 e 5</example>
-    <tag>out.number1=0; out.operator = "";out.number2=0;</tag>
+    <tag>out.number1=-1; out.operator = "";out.number2=-1;</tag>
     <one-of>
       <item>Desligar</item>
       <item>
@@ -17,10 +17,46 @@
       </item>
       <item>
         <ruleref uri ="#Operacao" type="application/srgs+xml"/>
-        <tag>out.number1=rules.latest();</tag>
-        <ruleref uri ="#Numero" type="application/srgs+xml"/>
         <tag>out.operator=rules.latest();</tag>
+        <ruleref uri ="#Numero" type="application/srgs+xml"/>
+        <tag>out.number1=rules.latest();</tag>
         <ruleref special="GARBAGE" />
+        <ruleref uri ="#Numero" type="application/srgs+xml"/>
+        <tag>out.number2=rules.latest();</tag>
+      </item>
+      <item>
+        <ruleref uri ="#Numero" type="application/srgs+xml"/>
+        <tag>out.number1=rules.latest();</tag>
+        <ruleref uri ="#Operacao" type="application/srgs+xml"/>
+        <tag>out.operator=rules.latest();</tag>
+        <ruleref uri ="#Numero" type="application/srgs+xml"/>
+        <tag>out.number2=rules.latest();</tag>
+      </item>
+      <item>
+        <item>Quanto é</item>
+        <ruleref uri ="#Numero" type="application/srgs+xml"/>
+        <tag>out.number1=rules.latest();</tag>
+        <ruleref uri ="#OperacaoDois" type="application/srgs+xml"/>
+        <tag>out.operator=rules.latest();</tag>
+      </item>
+      <item>
+        <item>Quanto é</item>
+        <ruleref uri ="#OperacaoDois" type="application/srgs+xml"/>
+        <tag>out.operator=rules.latest();</tag>
+        <item>de</item>
+        <ruleref uri ="#Numero" type="application/srgs+xml"/>
+        <tag>out.number2=rules.latest();</tag>
+      </item>
+      <item>
+        <ruleref uri ="#Numero" type="application/srgs+xml"/>
+        <tag>out.number1=rules.latest();</tag>
+        <ruleref uri ="#OperacaoDois" type="application/srgs+xml"/>
+        <tag>out.operator=rules.latest();</tag>
+      </item>
+      <item>
+        <ruleref uri ="#OperacaoDois" type="application/srgs+xml"/>
+        <tag>out.operator=rules.latest();</tag>
+        <item>de</item>
         <ruleref uri ="#Numero" type="application/srgs+xml"/>
         <tag>out.number2=rules.latest();</tag>
       </item>
@@ -40,6 +76,16 @@
       <item>oito<tag>out = 8; </tag></item>
       <item>nove<tag>out = 9; </tag></item>
       <item>dez<tag>out = 10; </tag></item>
+      <item>onze<tag>out = 11; </tag></item>
+      <item>doze<tag>out = 12; </tag></item>
+      <item>treze<tag>out = 13; </tag></item>
+      <item>catorze<tag>out = 14; </tag></item>
+      <item>quinze<tag>out = 15; </tag></item>
+      <item>dezasseis<tag>out = 16; </tag></item>
+      <item>dezassete<tag>out = 17; </tag></item>
+      <item>dezoito<tag>out = 18; </tag></item>
+      <item>dezanove<tag>out = 19; </tag></item>
+      <item>vinte<tag>out = 20; </tag></item>
     </one-of>
   </rule>
 
@@ -53,6 +99,15 @@
       <item>vezes<tag>out = "*"; </tag></item>
       <item>divide<tag>out = "/"; </tag></item>
       <item>sob<tag>out = "/"; </tag></item>
+      <item>elevado a<tag>out = "^"; </tag></item>
+    </one-of>
+  </rule>
+  <rule id="OperacaoDois">
+    <one-of>
+      <item>ao quadrado<tag>out = "^,2"; </tag></item>
+      <item>ao cubo<tag>out = "^,3"; </tag></item>
+      <item>raiz<tag>out = "raiz"; </tag></item>
+      <item>raiz quadrada<tag>out = "raiz"; </tag></item>
     </one-of>
   </rule>
 </grammar>

@@ -49,12 +49,12 @@ namespace speechModality
 
         private void Sre_SpeechHypothesized(object sender, SpeechHypothesizedEventArgs e)
         {
-            onRecognized(new SpeechEventArg() { Text = e.Result.Text, Confidence = e.Result.Confidence, Final = false });
+            onRecognized(new SpeechEventArg() { Text = e.Result.Text, Confidence = e.Result.Confidence, Final = false, Semantic = e.Result.Semantics});
         }
 
         private void Sre_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
-            onRecognized(new SpeechEventArg(){Text = e.Result.Text, Confidence = e.Result.Confidence, Final = true});
+            onRecognized(new SpeechEventArg() {Text = e.Result.Text, Confidence = e.Result.Confidence, Final = true, Semantic = e.Result.Semantics});
             
             //SEND
             // IMPORTANT TO KEEP THE FORMAT {"recognized":["SHAPE","COLOR"]}
