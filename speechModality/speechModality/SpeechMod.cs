@@ -43,13 +43,6 @@ namespace speechModality
             sre.SetInputToDefaultAudioDevice();
             sre.RecognizeAsync(RecognizeMode.Multiple);
             sre.SpeechRecognized += Sre_SpeechRecognized;
-            sre.SpeechHypothesized += Sre_SpeechHypothesized;
-
-        }
-
-        private void Sre_SpeechHypothesized(object sender, SpeechHypothesizedEventArgs e)
-        {
-            onRecognized(new SpeechEventArg() { Text = e.Result.Text, Confidence = e.Result.Confidence, Final = false, Semantic = e.Result.Semantics});
         }
 
         private void Sre_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
@@ -68,6 +61,21 @@ namespace speechModality
 
             var exNot = lce.ExtensionNotification(e.Result.Audio.StartTime+"", e.Result.Audio.StartTime.Add(e.Result.Audio.Duration)+"",e.Result.Confidence, json);
             mmic.Send(exNot);
+        }
+
+        public void waitForSpeakModule()
+        {
+            sre.RecognizeAsyncStop();
+        }
+
+        public void startRecognitionModule()
+        {
+            try
+            {
+                sre.RecognizeAsync(RecognizeMode.Multiple);
+            }catch(System.InvalidOperationException e) {
+                Console.WriteLine("System recognizing");
+            }
         }
     }
 }

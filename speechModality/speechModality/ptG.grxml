@@ -1,12 +1,15 @@
 ﻿<?xml version="1.0"?>
 <grammar xml:lang="pt-PT" version="1.0" xmlns="http://www.w3.org/2001/06/grammar" tag-format="semantics/1.0">
   <rule id="rootRule" scope="public">
-    <example>4 mais | menos | vezes | a dividir | por 2</example>
-    <example> soma | divide | subtrai | multiplica 4 e 5</example>
-    <tag>out.number1=-1; out.operator = "";out.number2=-1;</tag>
+    <tag>out.number1=-1; out.operator = "";out.number2=-1; out.ajuda=""; out.confirm=""</tag>
     <one-of>
-      <item>Desligar</item>
       <item>
+        <ruleref uri ="#Conf" type="application/srgs+xml"/>
+        <tag>out.confirm=rules.latest();</tag>
+        <ruleref uri ="#Name" type="application/srgs+xml"/>
+      </item>
+      <item>
+        <ruleref uri ="#Name" type="application/srgs+xml"/>
         <item>Quanto é</item>
         <ruleref uri ="#Numero" type="application/srgs+xml"/>
         <tag>out.number1=rules.latest();</tag>
@@ -16,6 +19,7 @@
         <tag>out.number2=rules.latest();</tag>
       </item>
       <item>
+        <ruleref uri ="#Name" type="application/srgs+xml"/>
         <ruleref uri ="#Operacao" type="application/srgs+xml"/>
         <tag>out.operator=rules.latest();</tag>
         <ruleref uri ="#Numero" type="application/srgs+xml"/>
@@ -25,6 +29,7 @@
         <tag>out.number2=rules.latest();</tag>
       </item>
       <item>
+        <ruleref uri ="#Name" type="application/srgs+xml"/>
         <ruleref uri ="#Numero" type="application/srgs+xml"/>
         <tag>out.number1=rules.latest();</tag>
         <ruleref uri ="#Operacao" type="application/srgs+xml"/>
@@ -33,6 +38,7 @@
         <tag>out.number2=rules.latest();</tag>
       </item>
       <item>
+        <ruleref uri ="#Name" type="application/srgs+xml"/>
         <item>Quanto é</item>
         <ruleref uri ="#Numero" type="application/srgs+xml"/>
         <tag>out.number1=rules.latest();</tag>
@@ -40,6 +46,7 @@
         <tag>out.operator=rules.latest();</tag>
       </item>
       <item>
+        <ruleref uri ="#Name" type="application/srgs+xml"/>
         <item>Quanto é</item>
         <ruleref uri ="#OperacaoDois" type="application/srgs+xml"/>
         <tag>out.operator=rules.latest();</tag>
@@ -48,17 +55,24 @@
         <tag>out.number2=rules.latest();</tag>
       </item>
       <item>
+        <ruleref uri ="#Name" type="application/srgs+xml"/>
         <ruleref uri ="#Numero" type="application/srgs+xml"/>
         <tag>out.number1=rules.latest();</tag>
         <ruleref uri ="#OperacaoDois" type="application/srgs+xml"/>
         <tag>out.operator=rules.latest();</tag>
       </item>
       <item>
+        <ruleref uri ="#Name" type="application/srgs+xml"/>
         <ruleref uri ="#OperacaoDois" type="application/srgs+xml"/>
         <tag>out.operator=rules.latest();</tag>
         <item>de</item>
         <ruleref uri ="#Numero" type="application/srgs+xml"/>
         <tag>out.number2=rules.latest();</tag>
+      </item>
+      <item>
+        <ruleref uri ="#Name" type="application/srgs+xml"/>
+        <ruleref uri ="#Ajuda" type="application/srgs+xml"/>
+        <tag>out.ajuda=rules.latest();</tag>
       </item>
     </one-of>
   </rule>
@@ -88,6 +102,20 @@
       <item>vinte<tag>out = 20; </tag></item>
     </one-of>
   </rule>
+  
+  <rule id="Ajuda">
+    <one-of>
+      <item>ajuda<tag>out = "ajuda"; </tag></item>
+      <item>Preciso de ajuda<tag>out = "ajuda"; </tag></item>
+      <item>O que posso fazer?<tag>out = "ajuda"; </tag></item>
+      <item>ajuda-me<tag>out = "ajuda"; </tag></item>
+      <item>Que contas posso fazer?<tag>out = "ajuda"; </tag></item>
+      <item>E agora?<tag>out = "ajuda"; </tag></item>
+      <item>O que faço?<tag>out = "ajuda"; </tag></item>
+      <item>Podes-me ajudar?<tag>out = "ajuda"; </tag></item>
+      <item>Que comandos estão disponiveis?<tag>out = "ajuda"; </tag></item>
+    </one-of>
+  </rule>
 
   <rule id="Operacao">
     <one-of>
@@ -102,6 +130,7 @@
       <item>elevado a<tag>out = "^"; </tag></item>
     </one-of>
   </rule>
+  
   <rule id="OperacaoDois">
     <one-of>
       <item>ao quadrado<tag>out = "^,2"; </tag></item>
@@ -110,4 +139,25 @@
       <item>raiz quadrada<tag>out = "raiz"; </tag></item>
     </one-of>
   </rule>
+  
+  <rule id="Name">
+    <one-of>
+      <item>Cheila</item>
+      <item></item>
+    </one-of>
+  </rule>
+
+  <rule id="Conf">
+    <one-of>
+      <item>ya<tag>out = "sim"; </tag></item>
+      <item>sim<tag>out = "sim"; </tag></item>
+      <item>não<tag>out = "nao"; </tag></item>
+      <item>exato<tag>out = "sim"; </tag></item>
+      <item>exatamente<tag>out = "sim"; </tag></item>
+      <item>Nah<tag>out = "nao"; </tag></item>
+      <item>Nope<tag>out = "nao"; </tag></item>
+      <item>Nada disso<tag>out = "nao"; </tag></item>
+    </one-of>
+  </rule>
+  
 </grammar>

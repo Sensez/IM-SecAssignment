@@ -38,6 +38,13 @@ namespace speechModality
             return result;
         }
 
+        public void resetValues()
+        {
+            this.operation = "";
+            this.result = 0;
+            this.beggining = true;
+        }
+
         public double makeCalculation(string expression)
         {
             string[] parts = expression.Split(',');
