@@ -79,17 +79,17 @@ namespace speechModality
                 }
                 else if (e.Confidence >= 0.90)
                 {
-                    if (!e.Semantic["number1"].Value.ToString().Equals("-1")) numberOne = e.Semantic["number1"].Value.ToString() + ",";
+                    numberOne = getNumberTranslated(1, e.Semantic);
+                    numberTwo = getNumberTranslated(2, e.Semantic);
                     if (!e.Semantic["operator"].Value.ToString().Equals("")) operation = e.Semantic["operator"].Value.ToString() + ",";
-                    if (!e.Semantic["number2"].Value.ToString().Equals("-1")) numberTwo = e.Semantic["number2"].Value.ToString();
                     syntesisSpeak("O resultado da operação é "+ _calc.makeCalculation(numberOne + operation + numberTwo).ToString());
                 }
                 else if (e.Confidence >= 0.80 && e.Confidence < 0.90)
                 {
-                    if (!e.Semantic["number1"].Value.ToString().Equals("-1")) numberOne = e.Semantic["number1"].Value.ToString() + ",";
+                    numberOne = getNumberTranslated(1, e.Semantic);
+                    numberTwo = getNumberTranslated(2, e.Semantic);
                     if (!e.Semantic["operator"].Value.ToString().Equals("")) operation = e.Semantic["operator"].Value.ToString() + ",";
-                    if (!e.Semantic["number2"].Value.ToString().Equals("-1")) numberTwo = e.Semantic["number2"].Value.ToString();
-                    if(e.Semantic["number2"].Value.ToString().Equals("-1") || e.Semantic["number1"].Value.ToString().Equals("-1"))
+                    if(numberTwo.Equals("") || numberOne.Equals(""))
                     {
                         if (e.Semantic["operator"].Value.ToString().Equals("raiz"))
                         {
@@ -111,10 +111,10 @@ namespace speechModality
                 }
                 else if (e.Confidence >= 0.45 && e.Confidence < 0.8)
                 {
-                    if (!e.Semantic["number1"].Value.ToString().Equals("-1")) numberOne = e.Semantic["number1"].Value.ToString() + ",";
+                    numberOne = getNumberTranslated(1, e.Semantic);
+                    numberTwo = getNumberTranslated(2, e.Semantic);
                     if (!e.Semantic["operator"].Value.ToString().Equals("")) operation = e.Semantic["operator"].Value.ToString() + ",";
-                    if (!e.Semantic["number2"].Value.ToString().Equals("-1")) numberTwo = e.Semantic["number2"].Value.ToString();
-                    if (e.Semantic["number2"].Value.ToString().Equals("-1") || e.Semantic["number1"].Value.ToString().Equals("-1"))
+                    if (numberTwo.Equals("") || numberOne.Equals(""))
                     {
                         if (e.Semantic["operator"].Value.ToString().Equals("raiz"))
                         {
@@ -165,6 +165,64 @@ namespace speechModality
                 case "^": operador = "elevado a"; break;
             }
             return operador;
+        }
+
+        public string getNumberTranslated(int number, SemanticValue semantic)
+        {
+            string result = "";
+            if(number == 1)
+            {
+                if (!semantic["number7"].Value.ToString().Equals("-1"))
+                    result += semantic["number7"].Value.ToString();
+
+                if (!result.Equals("") && semantic["number5"].Value.ToString().Equals("-1"))
+                    result += "0";
+
+                if (!semantic["number5"].Value.ToString().Equals("-1"))
+                    result += semantic["number5"].Value.ToString();
+
+                if (!result.Equals("") && semantic["number3"].Value.ToString().Equals("-1"))
+                    result += "0";
+
+                if (!semantic["number3"].Value.ToString().Equals("-1"))
+                    result += semantic["number3"].Value.ToString();
+
+                if (!result.Equals("") && semantic["number1"].Value.ToString().Equals("-1"))
+                    result += "0";
+
+                if (!semantic["number1"].Value.ToString().Equals("-1"))
+                    result += semantic["number1"].Value.ToString();
+
+                if (!result.Equals(""))
+                    result += ",";
+
+                return result;
+            }
+            else
+            {
+                if (!semantic["number8"].Value.ToString().Equals("-1"))
+                    result += semantic["number8"].Value.ToString();
+
+                if (!result.Equals("") && semantic["number6"].Value.ToString().Equals("-1"))
+                    result += "0";
+
+                if (!semantic["number6"].Value.ToString().Equals("-1"))
+                    result += semantic["number6"].Value.ToString();
+
+                if (!result.Equals("") && semantic["number4"].Value.ToString().Equals("-1"))
+                    result += "0";
+
+                if (!semantic["number4"].Value.ToString().Equals("-1"))
+                    result += semantic["number4"].Value.ToString();
+
+                if (!result.Equals("") && semantic["number2"].Value.ToString().Equals("-1"))
+                    result += "0";
+
+                if (!semantic["number2"].Value.ToString().Equals("-1"))
+                    result += semantic["number2"].Value.ToString();
+
+                return result;
+            }
         }
     }
 }
