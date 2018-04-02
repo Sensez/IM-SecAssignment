@@ -7,10 +7,10 @@
       <item>
         <ruleref uri ="#Conf" type="application/srgs+xml"/>
         <tag>out.confirm=rules.latest();</tag>
-        <ruleref uri ="#Name" type="application/srgs+xml"/>
+        <item repeat="0-1">Cheila</item>
       </item>
       <item>
-        <ruleref uri ="#Name" type="application/srgs+xml"/>
+        <item repeat="0-1">Cheila</item>
         <ruleref uri ="#Questao" type="application/srgs+xml"/>
         <ruleref uri ="#Milhar" type="application/srgs+xml"/>
         <tag>out.number7=rules.latest();</tag>
@@ -36,7 +36,7 @@
         <tag>out.number2=rules.latest();</tag>
       </item>
       <item>
-        <ruleref uri ="#Name" type="application/srgs+xml"/>
+        <item repeat="0-1">Cheila</item>
         <ruleref uri ="#Operacao" type="application/srgs+xml"/>
         <tag>out.operator=rules.latest();</tag>
         <ruleref uri ="#Milhar" type="application/srgs+xml"/>
@@ -62,7 +62,7 @@
         <tag>out.number2=rules.latest();</tag>
       </item>
       <item>
-        <ruleref uri ="#Name" type="application/srgs+xml"/>
+        <item repeat="0-1">Cheila</item>
         <ruleref uri ="#Questao" type="application/srgs+xml"/>
         <ruleref uri ="#Milhar" type="application/srgs+xml"/>
         <tag>out.number7=rules.latest();</tag>
@@ -78,7 +78,7 @@
         <tag>out.operator=rules.latest();</tag>
       </item>
       <item>
-        <ruleref uri ="#Name" type="application/srgs+xml"/>
+        <item repeat="0-1">Cheila</item>
         <ruleref uri ="#Questao" type="application/srgs+xml"/>
         <ruleref uri ="#OperacaoDois" type="application/srgs+xml"/>
         <tag>out.operator=rules.latest();</tag>
@@ -95,12 +95,12 @@
         <tag>out.number2=rules.latest();</tag>
       </item>
       <item>
-        <ruleref uri ="#Name" type="application/srgs+xml"/>
+        <item repeat="0-1">Cheila</item>
         <ruleref uri ="#Ajuda" type="application/srgs+xml"/>
         <tag>out.ajuda=rules.latest();</tag>
       </item>
       <item>
-        <ruleref uri ="#Name" type="application/srgs+xml"/>
+        <item repeat="0-1">Cheila</item>
         <ruleref uri ="#Questao" type="application/srgs+xml"/>
         <ruleref uri ="#Numero" type="application/srgs+xml"/>
         <tag>out.number1=rules.latest();</tag>
@@ -110,7 +110,7 @@
         <tag>out.number2=rules.latest();</tag>
       </item>
       <item>
-        <ruleref uri ="#Name" type="application/srgs+xml"/>
+        <item repeat="0-1">Cheila</item>
         <ruleref uri ="#Operacao" type="application/srgs+xml"/>
         <tag>out.operator=rules.latest();</tag>
         <ruleref uri ="#Numero" type="application/srgs+xml"/>
@@ -120,7 +120,7 @@
         <tag>out.number2=rules.latest();</tag>
       </item>
       <item>
-        <ruleref uri ="#Name" type="application/srgs+xml"/>
+        <item repeat="0-1">Cheila</item>
         <ruleref uri ="#Questao" type="application/srgs+xml"/>
         <ruleref uri ="#Numero" type="application/srgs+xml"/>
         <tag>out.number1=rules.latest();</tag>
@@ -128,7 +128,7 @@
         <tag>out.operator=rules.latest();</tag>
       </item>
       <item>
-        <ruleref uri ="#Name" type="application/srgs+xml"/>
+        <item repeat="0-1">Cheila</item>
         <ruleref uri ="#Questao" type="application/srgs+xml"/>
         <ruleref uri ="#OperacaoDois" type="application/srgs+xml"/>
         <tag>out.operator=rules.latest();</tag>
@@ -137,7 +137,7 @@
         <tag>out.number2=rules.latest();</tag>
       </item>
       <item>
-        <ruleref uri ="#Name" type="application/srgs+xml"/>
+        <item repeat="0-1">Cheila</item>
         <ruleref uri ="#Questao" type="application/srgs+xml"/>
         <ruleref uri ="#Milhar" type="application/srgs+xml"/>
         <tag>out.number7=rules.latest();</tag>
@@ -155,7 +155,7 @@
         <tag>out.number2=rules.latest();</tag>
       </item>
       <item>
-        <ruleref uri ="#Name" type="application/srgs+xml"/>
+        <item repeat="0-1">Cheila</item>
         <ruleref uri ="#Operacao" type="application/srgs+xml"/>
         <tag>out.operator=rules.latest();</tag>
         <ruleref uri ="#Milhar" type="application/srgs+xml"/>
@@ -173,7 +173,7 @@
         <tag>out.number2=rules.latest();</tag>
       </item>
       <item>
-        <ruleref uri ="#Name" type="application/srgs+xml"/>
+        <item repeat="0-1">Cheila</item>
         <ruleref uri ="#Questao" type="application/srgs+xml"/>
         <ruleref uri ="#Numero" type="application/srgs+xml"/>
         <tag>out.number1=rules.latest();</tag>
@@ -191,7 +191,7 @@
         <tag>out.number2=rules.latest();</tag>
       </item>
       <item>
-        <ruleref uri ="#Name" type="application/srgs+xml"/>
+        <item repeat="0-1">Cheila</item>
         <ruleref uri ="#Operacao" type="application/srgs+xml"/>
         <tag>out.operator=rules.latest();</tag>
         <ruleref uri ="#Numero" type="application/srgs+xml"/>
@@ -271,13 +271,6 @@
       <item>ao cubo<tag>out = "^,3"; </tag></item>
       <item>raiz<tag>out = "raiz"; </tag></item>
       <item>raiz quadrada<tag>out = "raiz"; </tag></item>
-    </one-of>
-  </rule>
-  
-  <rule id="Name">
-    <one-of>
-      <item>Cheila</item>
-      <item> </item>
     </one-of>
   </rule>
   
