@@ -35,7 +35,7 @@ namespace speechModality
             _t = new Tts();
             _calc = new Calculator();
             _sm.Recognized += _sm_Recognized;
-            syntesisSpeak("Olá, eu sou a Cheila a Calculadora Falante! Em que lhe posso ser util?");
+            //syntesisSpeak("Olá, eu sou a Cheila a Calculadora Falante! Em que lhe posso ser util?");
             _beggining = true;
             _confirmation = false;
             _lastNum1 = "";
@@ -169,6 +169,7 @@ namespace speechModality
 
         public string getNumberTranslated(int number, SemanticValue semantic)
         {
+            Console.WriteLine("--->"+ semantic["number7"].Value.ToString() + semantic["number5"].Value.ToString() + semantic["number3"].Value.ToString() + semantic["number1"].Value.ToString());
             string result = "";
             if(number == 1)
             {
@@ -181,7 +182,7 @@ namespace speechModality
                 if (!semantic["number5"].Value.ToString().Equals("-1"))
                     result += semantic["number5"].Value.ToString();
 
-                if (!result.Equals("") && semantic["number3"].Value.ToString().Equals("-1") && semantic["number1"].Value.ToString().Length == 1)
+                if (!result.Equals("") && semantic["number3"].Value.ToString().Equals("-1") && (semantic["number1"].Value.ToString().Length == 1 || semantic["number1"].Value.ToString().Equals("-1")))
                     result += "0";
 
                 if (!semantic["number3"].Value.ToString().Equals("-1"))
@@ -209,7 +210,7 @@ namespace speechModality
                 if (!semantic["number6"].Value.ToString().Equals("-1"))
                     result += semantic["number6"].Value.ToString();
 
-                if (!result.Equals("") && semantic["number4"].Value.ToString().Equals("-1") && semantic["number2"].Value.ToString().Length == 1)
+                if (!result.Equals("") && semantic["number4"].Value.ToString().Equals("-1") && (semantic["number2"].Value.ToString().Length == 1 || semantic["number2"].Value.ToString().Equals("-1")))
                     result += "0";
 
                 if (!semantic["number4"].Value.ToString().Equals("-1"))

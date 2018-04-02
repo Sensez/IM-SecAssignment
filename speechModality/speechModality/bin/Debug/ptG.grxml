@@ -99,6 +99,115 @@
         <ruleref uri ="#Ajuda" type="application/srgs+xml"/>
         <tag>out.ajuda=rules.latest();</tag>
       </item>
+      <item>
+        <ruleref uri ="#Name" type="application/srgs+xml"/>
+        <ruleref uri ="#Questao" type="application/srgs+xml"/>
+        <ruleref uri ="#Numero" type="application/srgs+xml"/>
+        <tag>out.number1=rules.latest();</tag>
+        <ruleref uri ="#Operacao" type="application/srgs+xml"/>
+        <tag>out.operator=rules.latest();</tag>
+        <ruleref uri ="#Numero" type="application/srgs+xml"/>
+        <tag>out.number2=rules.latest();</tag>
+      </item>
+      <item>
+        <ruleref uri ="#Name" type="application/srgs+xml"/>
+        <ruleref uri ="#Operacao" type="application/srgs+xml"/>
+        <tag>out.operator=rules.latest();</tag>
+        <ruleref uri ="#Numero" type="application/srgs+xml"/>
+        <tag>out.number1=rules.latest();</tag>
+        <ruleref uri ="#Preposicao" type="application/srgs+xml"/>
+        <ruleref uri ="#Numero" type="application/srgs+xml"/>
+        <tag>out.number2=rules.latest();</tag>
+      </item>
+      <item>
+        <ruleref uri ="#Name" type="application/srgs+xml"/>
+        <ruleref uri ="#Questao" type="application/srgs+xml"/>
+        <ruleref uri ="#Numero" type="application/srgs+xml"/>
+        <tag>out.number1=rules.latest();</tag>
+        <ruleref uri ="#OperacaoDois" type="application/srgs+xml"/>
+        <tag>out.operator=rules.latest();</tag>
+      </item>
+      <item>
+        <ruleref uri ="#Name" type="application/srgs+xml"/>
+        <ruleref uri ="#Questao" type="application/srgs+xml"/>
+        <ruleref uri ="#OperacaoDois" type="application/srgs+xml"/>
+        <tag>out.operator=rules.latest();</tag>
+        <ruleref uri ="#Preposicao" type="application/srgs+xml"/>
+        <ruleref uri ="#Numero" type="application/srgs+xml"/>
+        <tag>out.number2=rules.latest();</tag>
+      </item>
+      <item>
+        <ruleref uri ="#Name" type="application/srgs+xml"/>
+        <ruleref uri ="#Questao" type="application/srgs+xml"/>
+        <ruleref uri ="#Milhar" type="application/srgs+xml"/>
+        <tag>out.number7=rules.latest();</tag>
+        <ruleref uri ="#Centena" type="application/srgs+xml"/>
+        <tag>out.number5=rules.latest();</tag>
+        <ruleref uri ="#Preposicao" type="application/srgs+xml"/>
+        <ruleref uri ="#Dezena" type="application/srgs+xml"/>
+        <tag>out.number3=rules.latest();</tag>
+        <ruleref uri ="#Preposicao" type="application/srgs+xml"/>
+        <ruleref uri ="#Numero" type="application/srgs+xml"/>
+        <tag>out.number1=rules.latest();</tag>
+        <ruleref uri ="#Operacao" type="application/srgs+xml"/>
+        <tag>out.operator=rules.latest();</tag>
+        <ruleref uri ="#Numero" type="application/srgs+xml"/>
+        <tag>out.number2=rules.latest();</tag>
+      </item>
+      <item>
+        <ruleref uri ="#Name" type="application/srgs+xml"/>
+        <ruleref uri ="#Operacao" type="application/srgs+xml"/>
+        <tag>out.operator=rules.latest();</tag>
+        <ruleref uri ="#Milhar" type="application/srgs+xml"/>
+        <tag>out.number7=rules.latest();</tag>
+        <ruleref uri ="#Centena" type="application/srgs+xml"/>
+        <tag>out.number5=rules.latest();</tag>
+        <ruleref uri ="#Preposicao" type="application/srgs+xml"/>
+        <ruleref uri ="#Dezena" type="application/srgs+xml"/>
+        <tag>out.number3=rules.latest();</tag>
+        <ruleref uri ="#Preposicao" type="application/srgs+xml"/>
+        <ruleref uri ="#Numero" type="application/srgs+xml"/>
+        <tag>out.number1=rules.latest();</tag>
+        <ruleref uri ="#Preposicao" type="application/srgs+xml"/>
+        <ruleref uri ="#Numero" type="application/srgs+xml"/>
+        <tag>out.number2=rules.latest();</tag>
+      </item>
+      <item>
+        <ruleref uri ="#Name" type="application/srgs+xml"/>
+        <ruleref uri ="#Questao" type="application/srgs+xml"/>
+        <ruleref uri ="#Numero" type="application/srgs+xml"/>
+        <tag>out.number1=rules.latest();</tag>
+        <ruleref uri ="#Operacao" type="application/srgs+xml"/>
+        <tag>out.operator=rules.latest();</tag>
+        <ruleref uri ="#Milhar" type="application/srgs+xml"/>
+        <tag>out.number8=rules.latest();</tag>
+        <ruleref uri ="#Centena" type="application/srgs+xml"/>
+        <tag>out.number6=rules.latest();</tag>
+        <ruleref uri ="#Preposicao" type="application/srgs+xml"/>
+        <ruleref uri ="#Dezena" type="application/srgs+xml"/>
+        <tag>out.number4=rules.latest();</tag>
+        <ruleref uri ="#Preposicao" type="application/srgs+xml"/>
+        <ruleref uri ="#Numero" type="application/srgs+xml"/>
+        <tag>out.number2=rules.latest();</tag>
+      </item>
+      <item>
+        <ruleref uri ="#Name" type="application/srgs+xml"/>
+        <ruleref uri ="#Operacao" type="application/srgs+xml"/>
+        <tag>out.operator=rules.latest();</tag>
+        <ruleref uri ="#Numero" type="application/srgs+xml"/>
+        <tag>out.number1=rules.latest();</tag>
+        <ruleref uri ="#Preposicao" type="application/srgs+xml"/>
+        <ruleref uri ="#Milhar" type="application/srgs+xml"/>
+        <tag>out.number8=rules.latest();</tag>
+        <ruleref uri ="#Centena" type="application/srgs+xml"/>
+        <tag>out.number6=rules.latest();</tag>
+        <ruleref uri ="#Preposicao" type="application/srgs+xml"/>
+        <ruleref uri ="#Dezena" type="application/srgs+xml"/>
+        <tag>out.number4=rules.latest();</tag>
+        <ruleref uri ="#Preposicao" type="application/srgs+xml"/>
+        <ruleref uri ="#Numero" type="application/srgs+xml"/>
+        <tag>out.number2=rules.latest();</tag>
+      </item>
     </one-of>
   </rule>
 
@@ -124,7 +233,7 @@
       <item>dezassete<tag>out = 17; </tag></item>
       <item>dezoito<tag>out = 18; </tag></item>
       <item>dezanove<tag>out = 19; </tag></item>
-      <item><tag>out = -1; </tag></item>
+      <item> <tag>out = -1; </tag></item>
     </one-of>
   </rule>
   
@@ -168,7 +277,7 @@
   <rule id="Name">
     <one-of>
       <item>Cheila</item>
-      <item></item>
+      <item> </item>
     </one-of>
   </rule>
   
@@ -176,7 +285,7 @@
     <one-of>
       <item>Quanto é</item>
       <item>Quanto é que é</item>
-      <item></item>
+      <item> </item>
     </one-of>
   </rule>
   
@@ -185,7 +294,7 @@
       <item>com</item>
       <item>e</item>
       <item>de</item>
-      <item></item>
+      <item> </item>
     </one-of>
   </rule>
 
@@ -213,7 +322,7 @@
       <item>sete mil<tag>out = 7; </tag></item>
       <item>oito mil<tag>out = 8; </tag></item>
       <item>nove mil<tag>out = 9; </tag></item>
-      <item><tag>out = -1; </tag></item>
+      <item> <tag>out = -1; </tag></item>
     </one-of>
   </rule>
 
@@ -229,7 +338,7 @@
       <item>setecentos<tag>out = 7; </tag></item>
       <item>oitocentos<tag>out = 8; </tag></item>
       <item>novecentos<tag>out = 9; </tag></item>
-      <item><tag>out = -1; </tag></item>
+      <item> <tag>out = -1; </tag></item>
     </one-of>
   </rule>
 
@@ -243,7 +352,7 @@
       <item>setenta<tag>out = 7; </tag></item>
       <item>oitenta<tag>out = 8; </tag></item>
       <item>noventa<tag>out = 9; </tag></item>
-      <item><tag>out = -1; </tag></item>
+      <item> <tag>out = -1; </tag></item>
     </one-of>
   </rule>
 </grammar>
