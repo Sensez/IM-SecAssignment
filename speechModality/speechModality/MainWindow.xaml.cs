@@ -73,7 +73,7 @@ namespace speechModality
                 if (_beggining == true) _beggining = false;
                 if (e.Confidence > 0.8 && e.Semantic["ajuda"].Value.ToString().Equals("ajuda"))
                 {
-                    syntesisSpeak("Podes contar comigo para efetuar operações com dois números de até 3 digitos." +
+                    syntesisSpeak("Podes contar comigo para efetuar operações com dois números de até 4 digitos." +
                     " As operações disponivéis são as de soma, multiplicação, divisão, subtração, raiz quadrada, " +
                     "e elevar a um numero. Um exemplo de utilização seria: Cheila, soma 5 e 5");
                 }
@@ -181,7 +181,7 @@ namespace speechModality
                 if (!semantic["number5"].Value.ToString().Equals("-1"))
                     result += semantic["number5"].Value.ToString();
 
-                if (!result.Equals("") && semantic["number3"].Value.ToString().Equals("-1"))
+                if (!result.Equals("") && semantic["number3"].Value.ToString().Equals("-1") && semantic["number1"].Value.ToString().Length == 1)
                     result += "0";
 
                 if (!semantic["number3"].Value.ToString().Equals("-1"))
@@ -209,7 +209,7 @@ namespace speechModality
                 if (!semantic["number6"].Value.ToString().Equals("-1"))
                     result += semantic["number6"].Value.ToString();
 
-                if (!result.Equals("") && semantic["number4"].Value.ToString().Equals("-1"))
+                if (!result.Equals("") && semantic["number4"].Value.ToString().Equals("-1") && semantic["number2"].Value.ToString().Length == 1)
                     result += "0";
 
                 if (!semantic["number4"].Value.ToString().Equals("-1"))
