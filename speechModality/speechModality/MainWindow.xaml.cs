@@ -35,7 +35,7 @@ namespace speechModality
             _t = new Tts();
             _calc = new Calculator();
             _sm.Recognized += _sm_Recognized;
-            //syntesisSpeak("Olá, eu sou a Cheila a Calculadora Falante! Em que lhe posso ser util?");
+            syntesisSpeak(chooseRandomSpeech("greeting"));
             _beggining = true;
             _confirmation = false;
             _lastNum1 = "";
@@ -52,9 +52,7 @@ namespace speechModality
             _calc.resetValues();
             if (_beggining == true && e.Confidence < 0.40)
             {
-                syntesisSpeak("Podes contar comigo para efetuar operações com dois números de até 3 digitos." +
-                    " As operações disponivéis são as de soma, multiplicação, divisão, subtração, raiz quadrada, " +
-                    "e elevar a um numero. Um exemplo de utilização seria: Cheila, soma 5 e 5");
+                syntesisSpeak(chooseRandomSpeech("help"));
                 _beggining = false;
             }
             else if(_confirmation == true && e.Confidence>= 0.7){
@@ -65,7 +63,7 @@ namespace speechModality
                 }
                 else
                 {
-                    syntesisSpeak("Então peço desculpa por ter percebido mal, poderia repetir de novo por favor?");
+                    syntesisSpeak(chooseRandomSpeech("repeat"));
                 }
             }
             else
@@ -73,9 +71,7 @@ namespace speechModality
                 if (_beggining == true) _beggining = false;
                 if (e.Confidence > 0.8 && e.Semantic["ajuda"].Value.ToString().Equals("ajuda"))
                 {
-                    syntesisSpeak("Podes contar comigo para efetuar operações com dois números de até 4 digitos." +
-                    " As operações disponivéis são as de soma, multiplicação, divisão, subtração, raiz quadrada, " +
-                    "e elevar a um numero. Um exemplo de utilização seria: Cheila, soma 5 e 5");
+                    syntesisSpeak(chooseRandomSpeech("help"));
                 }
                 else if (e.Confidence >= 0.90)
                 {
@@ -140,7 +136,7 @@ namespace speechModality
                 }
                 else if (e.Confidence < 0.45)
                 {
-                    syntesisSpeak("Peço imensa desculpa, poderia repetir?");
+                    syntesisSpeak(chooseRandomSpeech("repetition"));
                 }
             }
         }
@@ -223,6 +219,37 @@ namespace speechModality
                     result += semantic["number2"].Value.ToString();
 
                 return result;
+            }
+        }
+
+        public string chooseRandomSpeech(string type)
+        {
+            Random rnd = new Random();
+            int random = rnd.Next(0, 3);
+
+            String[] greeting = { "Ola, eu sou a Cheila a calculadora falante, em que lhe posso ser util ?",
+                "Bem vindo ! Em que lhe posso ser util hoje ?",
+                "Ora aqui estou eu, Cheila, a magnifica calculadora ! Que contas vamos fazer hoje ?" };
+
+            String[] repetition = { "Peço imensa desculpa, poderia repetir?",
+                "Bolas, essa escapou-me, poderia dizer novamente por favor?",
+                "Hoje estou lenta, dormi pouco, peço imensa desculpa ! Poderia repetir de novo por favor?" };
+
+            String[] help = { "Pode contar comigo para efetuar operações com dois números de até 4 digitos." +
+                    " As operações disponíveis são as de soma, multiplicação, divisão, subtração, raiz quadrada, " +
+                    "e elevar a um numero. Um exemplo de utilização seria: Cheila, soma 5 e 5",
+                "Tenho todo o prazer em o ajudar, tente por exemplo algo como, quanto é um numero mais outro, ou melhor ainda, " +
+                "quanto é a soma de um numero com outro. Pode dividir, somar, subtrair, multiplicar e ainda aplicar raizes e elevar numeros. Todas as operações são válidas" +
+                "para numeros com até 4 digitos.",
+                "Pode contar comigo para o auxiliar a efetuar operações tais como as de soma, multiplicação, divisão e subtração a numeros com até 4 digitos." +
+                "Porque não tenta efetuar desde já uns calculos teste, como por exemplo, somar um numero com outro" };
+
+            switch (type)
+            {
+                case "greeting": return greeting[random];
+                case "repetition": return repetition[random];
+                case "help": return help[random];
+                default: return "";
             }
         }
     }
