@@ -259,8 +259,10 @@
       <item>subtrai<tag>out = "-"; </tag></item>
       <item>multiplica<tag>out = "*"; </tag></item>
       <item>vezes<tag>out = "*"; </tag></item>
+      <item>a dividir<tag>out = "/"; </tag></item>
       <item>divide<tag>out = "/"; </tag></item>
       <item>sob<tag>out = "/"; </tag></item>
+      <item>sobre<tag>out = "/"; </tag></item>
       <item>elevado a<tag>out = "^"; </tag></item>
     </one-of>
   </rule>

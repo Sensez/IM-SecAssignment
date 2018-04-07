@@ -75,7 +75,7 @@ namespace speechModality
                     }
                 }
             }
-            return result;
+            return Math.Round(result, 3);
         }
     }
 }

@@ -55,15 +55,16 @@ namespace speechModality
                 syntesisSpeak(chooseRandomSpeech("help"));
                 _beggining = false;
             }
-            else if(_confirmation == true && e.Confidence>= 0.7){
-                _confirmation = false;
+            else if(_confirmation == true){
                 if (e.Semantic["confirm"].Value.ToString().Equals("sim"))
                 {
                     syntesisSpeak("O resultado da operação é " + _calc.makeCalculation(_lastNum1 + _lastOp + _lastNum2).ToString());
+                    _confirmation = false;
                 }
-                else
+                else if(e.Semantic["confirm"].Value.ToString().Equals("nao"))
                 {
-                    syntesisSpeak(chooseRandomSpeech("repeat"));
+                    syntesisSpeak(chooseRandomSpeech("repetition"));
+                    _confirmation = false;
                 }
             }
             else
@@ -227,7 +228,7 @@ namespace speechModality
             Random rnd = new Random();
             int random = rnd.Next(0, 3);
 
-            String[] greeting = { "Ola, eu sou a Cheila a calculadora falante, em que lhe posso ser util ?",
+            String[] greeting = { "Olá, eu sou a Cheila a calculadora falante, em que lhe posso ser util ?",
                 "Bem vindo ! Em que lhe posso ser util hoje ?",
                 "Ora aqui estou eu, Cheila, a magnifica calculadora ! Que contas vamos fazer hoje ?" };
 
