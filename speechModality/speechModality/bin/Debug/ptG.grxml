@@ -2,8 +2,15 @@
 <grammar xml:lang="pt-PT" version="1.0" xmlns="http://www.w3.org/2001/06/grammar" tag-format="semantics/1.0">
   <rule id="rootRule" scope="public">
     <tag>out.number1=-1; out.operator = "";out.number2=-1; out.ajuda=""; out.confirm=""; 
-    out.number3=-1; out.number4=-1; out.number5=-1; out.number6=-1; out.number7=-1; out.number8=-1;</tag>
+    out.number3=-1; out.number4=-1; out.number5=-1; out.number6=-1; out.number7=-1; out.number8=-1;
+    out.goodbye=""</tag>
     <one-of>
+      <item>
+        <item repeat="0-1">Cheila</item>
+        <ruleref uri ="#Goodbye" type="application/srgs+xml"/>
+        <tag>out.goodbye=rules.latest();</tag>
+        <item repeat="0-1">Cheila</item>
+      </item>
       <item>
         <ruleref uri ="#Conf" type="application/srgs+xml"/>
         <tag>out.confirm=rules.latest();</tag>
@@ -303,6 +310,19 @@
       <item>Nah<tag>out = "nao"; </tag></item>
       <item>Nope<tag>out = "nao"; </tag></item>
       <item>Nada disso<tag>out = "nao"; </tag></item>
+    </one-of>
+  </rule>
+  
+  <rule id="Goodbye">
+    <one-of>
+      <item>Vá, até amanha<tag>out = "goodbye"; </tag></item>
+      <item>Obrigado por tudo<tag>out = "goodbye"; </tag></item>
+      <item>Fica bem<tag>out = "goodbye"; </tag></item>
+      <item>Xau<tag>out = "goodbye"; </tag></item>
+      <item>Adeus<tag>out = "goodbye"; </tag></item>
+      <item>Até à próxima<tag>out = "goodbye"; </tag></item>
+      <item>Obrigado<tag>out = "goodbye"; </tag></item>
+      <item>Até Amanha<tag>out = "goodbye"; </tag></item>
     </one-of>
   </rule>
   

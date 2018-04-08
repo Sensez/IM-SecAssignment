@@ -32,10 +32,10 @@ namespace speechModality
         {
             InitializeComponent();
             _sm = new SpeechMod();
-            _t = new Tts();
+            _t = new Tts(_sm);
             _calc = new Calculator();
             _sm.Recognized += _sm_Recognized;
-            syntesisSpeak(chooseRandomSpeech("greeting"));
+            _t.Speak(chooseRandomSpeech("greeting"));
             _beggining = true;
             _confirmation = false;
             _lastNum1 = "";
@@ -45,41 +45,45 @@ namespace speechModality
 
         private void _sm_Recognized(object sender, SpeechEventArg e)
         {
-            Console.WriteLine(e.Semantic["ajuda"].Value.ToString() + "--------------->");
             string numberOne ="", numberTwo= "", operation= "";
             result.Text = e.Text;
             confidence.Text = e.Confidence+"";
             _calc.resetValues();
             if (_beggining == true && e.Confidence < 0.40)
             {
-                syntesisSpeak(chooseRandomSpeech("help"));
+                _t.Speak(chooseRandomSpeech("help"));
                 _beggining = false;
             }
             else if(_confirmation == true){
                 if (e.Semantic["confirm"].Value.ToString().Equals("sim"))
                 {
-                    syntesisSpeak("O resultado da operação é " + _calc.makeCalculation(_lastNum1 + _lastOp + _lastNum2).ToString());
+                    _t.Speak("O resultado da operação é " + _calc.makeCalculation(_lastNum1 + _lastOp + _lastNum2).ToString());
                     _confirmation = false;
                 }
                 else if(e.Semantic["confirm"].Value.ToString().Equals("nao"))
                 {
-                    syntesisSpeak(chooseRandomSpeech("repetition"));
+                    _t.Speak(chooseRandomSpeech("repetition"));
                     _confirmation = false;
                 }
             }
             else
             {
                 if (_beggining == true) _beggining = false;
-                if (e.Confidence > 0.8 && e.Semantic["ajuda"].Value.ToString().Equals("ajuda"))
+                if (e.Confidence > 0.7 && e.Semantic["goodbye"].Value.ToString().Equals("goodbye"))
                 {
-                    syntesisSpeak(chooseRandomSpeech("help"));
+                    _sm.setGoodbye();
+                    _t.Speak(chooseRandomSpeech("goodbye"));
+                }
+                if (e.Confidence > 0.7 && e.Semantic["ajuda"].Value.ToString().Equals("ajuda"))
+                {
+                    _t.Speak(chooseRandomSpeech("help"));
                 }
                 else if (e.Confidence >= 0.90)
                 {
                     numberOne = getNumberTranslated(1, e.Semantic);
                     numberTwo = getNumberTranslated(2, e.Semantic);
                     if (!e.Semantic["operator"].Value.ToString().Equals("")) operation = e.Semantic["operator"].Value.ToString() + ",";
-                    syntesisSpeak("O resultado da operação é "+ _calc.makeCalculation(numberOne + operation + numberTwo).ToString());
+                    _t.Speak("O resultado da operação é "+ _calc.makeCalculation(numberOne + operation + numberTwo).ToString());
                 }
                 else if (e.Confidence >= 0.80 && e.Confidence < 0.90)
                 {
@@ -90,20 +94,20 @@ namespace speechModality
                     {
                         if (e.Semantic["operator"].Value.ToString().Equals("raiz"))
                         {
-                            syntesisSpeak("O resultado de raiz de " + numberTwo.ToString() + "é de " + _calc.makeCalculation(numberOne + operation + numberTwo).ToString());
+                            _t.Speak("O resultado de raiz de " + numberTwo.ToString() + "é de " + _calc.makeCalculation(numberOne + operation + numberTwo).ToString());
                         }
                         else if(e.Semantic["operator"].Value.ToString().Equals("^,2"))
                         {
-                            syntesisSpeak("O resultado de " + numberOne.ToString() + "ao quadrado é de: " + _calc.makeCalculation(numberOne + operation + numberTwo).ToString());
+                            _t.Speak("O resultado de " + numberOne.ToString() + "ao quadrado é de: " + _calc.makeCalculation(numberOne + operation + numberTwo).ToString());
                         }
                         else
                         {
-                            syntesisSpeak("O resultado de " + numberOne.ToString() + "ao cubo é de: " + _calc.makeCalculation(numberOne + operation + numberTwo).ToString());
+                            _t.Speak("O resultado de " + numberOne.ToString() + "ao cubo é de: " + _calc.makeCalculation(numberOne + operation + numberTwo).ToString());
                         }
                     }
                     else
                     {
-                        syntesisSpeak("O resultado de " + numberOne.ToString() + " " + getOperador(e.Semantic["operator"].Value.ToString()) +" " + numberTwo.ToString() + " é " + _calc.makeCalculation(numberOne + operation + numberTwo).ToString());
+                        _t.Speak("O resultado de " + numberOne.ToString() + " " + getOperador(e.Semantic["operator"].Value.ToString()) +" " + numberTwo.ToString() + " é " + _calc.makeCalculation(numberOne + operation + numberTwo).ToString());
                     }
                 }
                 else if (e.Confidence >= 0.45 && e.Confidence < 0.8)
@@ -115,20 +119,20 @@ namespace speechModality
                     {
                         if (e.Semantic["operator"].Value.ToString().Equals("raiz"))
                         {
-                            syntesisSpeak("Deseja saber o resultado de raiz de " + numberTwo.ToString() + "certo?");
+                            _t.Speak("Deseja saber o resultado de raiz de " + numberTwo.ToString() + "certo?");
                         }
                         else if (e.Semantic["operator"].Value.ToString().Equals("^,2"))
                         {
-                            syntesisSpeak("Deseja saber o resultado  de " + numberOne.ToString() + "ao quadrado certo?");
+                            _t.Speak("Deseja saber o resultado  de " + numberOne.ToString() + "ao quadrado certo?");
                         }
                         else
                         {
-                            syntesisSpeak("Deseja saber o resultado de " + numberOne.ToString() + "ao cubo certo?");
+                            _t.Speak("Deseja saber o resultado de " + numberOne.ToString() + "ao cubo certo?");
                         }
                     }
                     else
                     {
-                        syntesisSpeak("Deseja saber o resultado de " + numberOne.ToString() + " " + getOperador(e.Semantic["operator"].Value.ToString()) + " " + numberTwo.ToString() + " certo?");
+                        _t.Speak("Deseja saber o resultado de " + numberOne.ToString() + " " + getOperador(e.Semantic["operator"].Value.ToString()) + " " + numberTwo.ToString() + " certo?");
                     }
                     _lastNum1 = numberOne;
                     _lastNum2 = numberTwo;
@@ -137,17 +141,9 @@ namespace speechModality
                 }
                 else if (e.Confidence < 0.45)
                 {
-                    syntesisSpeak(chooseRandomSpeech("repetition"));
+                    _t.Speak(chooseRandomSpeech("repetition"));
                 }
             }
-        }
-
-        public void syntesisSpeak(string message)
-        {
-            Console.WriteLine(message + "------------------------>");
-            _sm.waitForSpeakModule();
-            _t.Speak(message);
-            _sm.startRecognitionModule();
         }
 
         public string getOperador(String op)
@@ -166,7 +162,6 @@ namespace speechModality
 
         public string getNumberTranslated(int number, SemanticValue semantic)
         {
-            Console.WriteLine("--->"+ semantic["number7"].Value.ToString() + semantic["number5"].Value.ToString() + semantic["number3"].Value.ToString() + semantic["number1"].Value.ToString());
             string result = "";
             if(number == 1)
             {
@@ -245,11 +240,17 @@ namespace speechModality
                 "Pode contar comigo para o auxiliar a efetuar operações tais como as de soma, multiplicação, divisão e subtração a numeros com até 4 digitos." +
                 "Porque não tenta efetuar desde já uns calculos teste, como por exemplo, somar um numero com outro" };
 
+            String[] goodbye = {
+                 "Ate amanhã, nem que seja para me dizer olá porque eu mereço!",
+                "Sempre às ordens ! Tenha um resto de um bom dia.",
+                "Espero ter ajudado, que tenha o resto de um bom dia." };
+
             switch (type)
             {
                 case "greeting": return greeting[random];
                 case "repetition": return repetition[random];
                 case "help": return help[random];
+                case "goodbye": return goodbye[random];
                 default: return "";
             }
         }

@@ -10,6 +10,7 @@ namespace speechModality
 {
     public class SpeechMod
     {
+        private Boolean goodbye = false;
         private SpeechRecognitionEngine sre;
         private Grammar gr;
         public event EventHandler<SpeechEventArg> Recognized;
@@ -76,6 +77,16 @@ namespace speechModality
             }catch(System.InvalidOperationException e) {
                 Console.WriteLine("System recognizing");
             }
+        }
+
+        public Boolean recognizedGoodbye()
+        {
+            return goodbye;
+        }
+
+        public void setGoodbye()
+        {
+            goodbye = true;
         }
     }
 }
