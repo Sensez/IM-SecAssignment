@@ -1,9 +1,10 @@
 ﻿<?xml version="1.0"?>
 <grammar xml:lang="pt-PT" version="1.0" xmlns="http://www.w3.org/2001/06/grammar" tag-format="semantics/1.0">
   <rule id="rootRule" scope="public">
-    <tag>out.number1=-1; out.operator = "";out.number2=-1; out.ajuda=""; out.confirm=""; 
-    out.number3=-1; out.number4=-1; out.number5=-1; out.number6=-1; out.number7=-1; out.number8=-1;
-    out.goodbye=""</tag>
+    <tag>
+      out.confirm=""; out.goodbye=""; out.ajuda=""; out.operator = ""; out.number1=-1; out.number2=-1; ;
+      out.number3=-1; out.number4=-1; out.number5=-1; out.number6=-1; out.number7=-1; out.number8=-1;
+    </tag>
     <one-of>
       <item>
         <item repeat="0-1">Cheila</item>

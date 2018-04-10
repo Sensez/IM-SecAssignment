@@ -61,8 +61,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Calculator.cs" />
-    <Compile Include="Tts.cs" />
     <Compile Include="SpeechEventArg.cs" />
     <Compile Include="SpeechMod.cs" />
     <Page Include="MainWindow.xaml">

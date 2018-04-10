@@ -10,7 +10,6 @@ namespace speechModality
 {
     public class SpeechMod
     {
-        private Boolean goodbye = false;
         private SpeechRecognitionEngine sre;
         private Grammar gr;
         public event EventHandler<SpeechEventArg> Recognized;
@@ -29,7 +28,7 @@ namespace speechModality
         public SpeechMod()
         {
             //init LifeCycleEvents..
-            lce = new LifeCycleEvents("ASR", "FUSION","speech-1", "acoustic", "command"); // LifeCycleEvents(string source, string target, string id, string medium, string mode)
+            lce = new LifeCycleEvents("ASR", "FUSION", "speech-1", "acoustic", "command"); // LifeCycleEvents(string source, string target, string id, string medium, string mode)
             //mmic = new MmiCommunication("localhost",9876,"User1", "ASR");  //PORT TO FUSION - uncomment this line to work with fusion later
             mmic = new MmiCommunication("localhost", 8000, "User1", "ASR"); // MmiCommunication(string IMhost, int portIM, string UserOD, string thisModalityName)
 
@@ -40,53 +39,30 @@ namespace speechModality
             gr = new Grammar(Environment.CurrentDirectory + "\\ptG.grxml", "rootRule");
             sre.LoadGrammar(gr);
 
-            
+
             sre.SetInputToDefaultAudioDevice();
             sre.RecognizeAsync(RecognizeMode.Multiple);
             sre.SpeechRecognized += Sre_SpeechRecognized;
+
         }
 
         private void Sre_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
-            onRecognized(new SpeechEventArg() {Text = e.Result.Text, Confidence = e.Result.Confidence, Final = true, Semantic = e.Result.Semantics});
-            
+            onRecognized(new SpeechEventArg() { Text = e.Result.Text, Confidence = e.Result.Confidence, Final = true });
+
             //SEND
             // IMPORTANT TO KEEP THE FORMAT {"recognized":["SHAPE","COLOR"]}
             string json = "{ \"recognized\": [";
+            json += "\"" + e.Result.Confidence + "\", ";
             foreach (var resultSemantic in e.Result.Semantics)
             {
-                json+= "\"" + resultSemantic.Value.Value +"\", ";
+                json += "\"" + resultSemantic.Value.Value + "\", ";
             }
             json = json.Substring(0, json.Length - 2);
             json += "] }";
 
-            var exNot = lce.ExtensionNotification(e.Result.Audio.StartTime+"", e.Result.Audio.StartTime.Add(e.Result.Audio.Duration)+"",e.Result.Confidence, json);
+            var exNot = lce.ExtensionNotification(e.Result.Audio.StartTime + "", e.Result.Audio.StartTime.Add(e.Result.Audio.Duration) + "", e.Result.Confidence, json);
             mmic.Send(exNot);
-        }
-
-        public void waitForSpeakModule()
-        {
-            sre.RecognizeAsyncStop();
-        }
-
-        public void startRecognitionModule()
-        {
-            try
-            {
-                sre.RecognizeAsync(RecognizeMode.Multiple);
-            }catch(System.InvalidOperationException e) {
-                Console.WriteLine("System recognizing");
-            }
-        }
-
-        public Boolean recognizedGoodbye()
-        {
-            return goodbye;
-        }
-
-        public void setGoodbye()
-        {
-            goodbye = true;
         }
     }
 }

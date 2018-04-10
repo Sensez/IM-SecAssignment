@@ -26,9 +26,10 @@ namespace speechModality
 
         public double calculate(String operation, double result, String part)
         {
-            switch (operation){
+            switch (operation)
+            {
                 case "+": result = result + double.Parse(part); break;
-                case "-": result = result - double.Parse(part); break; 
+                case "-": result = result - double.Parse(part); break;
                 case "*": result = result * double.Parse(part); break;
                 case "/": result = result / double.Parse(part); break;
                 case "^": result = Math.Pow(result, double.Parse(part)); break;
@@ -52,7 +53,7 @@ namespace speechModality
             {
                 if (regex.IsMatch(part))
                 {
-                    if(beggining && operation.Equals("raiz"))
+                    if (beggining && operation.Equals("raiz"))
                     {
                         beggining = false;
                         result = double.Parse(part);
