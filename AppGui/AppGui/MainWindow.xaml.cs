@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Windows;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Shapes;
 using System.Xml.Linq;
 using mmisharp;
 using Newtonsoft.Json;
-using speechModality;
 
 namespace AppGui
 {
@@ -19,8 +15,7 @@ namespace AppGui
         private MmiCommunication mmiC;
         private Tts _t;
         private Calculator _calc;
-        private Boolean _beggining;
-        private Boolean _confirmation;
+        private Boolean _beggining, _confirmation;
         private double confidence;
         private string _lastNum1, _lastNum2, _lastOp, confirmation, goodbye, ajuda,
                         oprt, n1, n2, n3, n4, n5, n6, n7, n8;
@@ -30,11 +25,8 @@ namespace AppGui
             _t = new Tts();
             _calc = new Calculator();
             _t.Speak(chooseRandomSpeech("greeting"));
-            _beggining = true;
-            _confirmation = false;
-            _lastNum1 = "";
-            _lastNum2 = "";
-            _lastOp = "";
+            _beggining = true; _confirmation = false;
+            _lastNum1 = ""; _lastNum2 = ""; _lastOp = "";
             confidence = 0;
             InitializeComponent();
             mmiC = new MmiCommunication("localhost", 8000, "User1", "GUI");
@@ -44,107 +36,113 @@ namespace AppGui
 
         private void MmiC_Message(object sender, MmiEventArgs e)
         {
-            var doc = XDocument.Parse(e.Message);
-            var com = doc.Descendants("command").FirstOrDefault().Value;
-            dynamic json = JsonConvert.DeserializeObject(com);
-            fillValuesWithMessage(json);
+            if (!_t.getSpeaking()) { 
+                var doc = XDocument.Parse(e.Message);
+                var com = doc.Descendants("command").FirstOrDefault().Value;
+                dynamic json = JsonConvert.DeserializeObject(com);
+                fillValuesWithMessage(json);
             
-            string numberOne = "", numberTwo = "", operation = "";
-            _calc.resetValues();
+                string numberOne = "", numberTwo = "", operation = "";
+                _calc.resetValues();
 
-            if (_beggining == true && confidence < 0.40)
-            {
-                _t.Speak(chooseRandomSpeech("help"));
-                _beggining = false;
-            }
-            else if (_confirmation == true)
-            {
-                if (confirmation.Equals("sim"))
-                {
-                    _t.Speak("O resultado da operação é " + _calc.makeCalculation(_lastNum1 + _lastOp + _lastNum2).ToString());
-                    _confirmation = false;
-                }
-                else if (confirmation.Equals("nao"))
-                {
-                    _t.Speak(chooseRandomSpeech("repetition"));
-                    _confirmation = false;
-                }
-            }
-            else
-            {
-                if (_beggining == true) _beggining = false;
-                if (confidence > 0.7 && goodbye.Equals("goodbye"))
-                {
-                    _t.Speak(chooseRandomSpeech("goodbye"));
-                }
-                if (confidence > 0.7 && ajuda.Equals("ajuda"))
+                if (_beggining == true && confidence < 0.40)
                 {
                     _t.Speak(chooseRandomSpeech("help"));
+                    _beggining = false;
                 }
-                else if (confidence >= 0.90)
+                else if (_confirmation == true)
                 {
-                    numberOne = getNumberTranslated(1);
-                    numberTwo = getNumberTranslated(2);
-                    if (!oprt.Equals("")) operation = oprt + ",";
-                    _t.Speak("O resultado da operação é " + _calc.makeCalculation(numberOne + operation + numberTwo).ToString());
-                }
-                else if (confidence >= 0.80 && confidence < 0.90)
-                {
-                    numberOne = getNumberTranslated(1);
-                    numberTwo = getNumberTranslated(2);
-                    if (!oprt.Equals("")) operation = oprt + ",";
-                    if (numberTwo.Equals("") || numberOne.Equals(""))
+                    if (confirmation.Equals("sim"))
                     {
-                        if (oprt.Equals("raiz"))
+                        Console.WriteLine("----" + _lastNum1 + " " + _lastOp + " " + _lastNum2 + "---");
+                        _t.Speak("O resultado da operação é " + _calc.makeCalculation(_lastNum1 + _lastOp + _lastNum2).ToString());
+                        _confirmation = false;
+                    }
+                    else if (confirmation.Equals("nao"))
+                    {
+                        _t.Speak(chooseRandomSpeech("repetition"));
+                        _confirmation = false;
+                    }
+                }
+                else
+                {
+                    if (_beggining == true) _beggining = false;
+                    if (confidence > 0.7 && goodbye.Equals("goodbye"))
+                    {
+                        _t.Speak(chooseRandomSpeech("goodbye"));
+                    }
+                    if (confidence > 0.7 && ajuda.Equals("ajuda"))
+                    {
+                        _t.Speak(chooseRandomSpeech("help"));
+                    }
+                    else if (confidence >= 0.90)
+                    {
+                        numberOne = getNumberTranslated(1);
+                        numberTwo = getNumberTranslated(2);
+                        if (!oprt.Equals("")) operation = oprt + ",";
+                        Console.WriteLine("----" + numberOne.ToString() + " " + getOperador(oprt) + " " + numberTwo.ToString() + "---");
+                        _t.Speak("O resultado da operação é " + _calc.makeCalculation(numberOne + operation + numberTwo).ToString());
+                    }
+                    else if (confidence >= 0.80 && confidence < 0.90)
+                    {
+                        numberOne = getNumberTranslated(1);
+                        numberTwo = getNumberTranslated(2);
+                        if (!oprt.Equals("")) operation = oprt + ",";
+                        Console.WriteLine("----" + numberOne.ToString() + " " + getOperador(oprt) + " " + numberTwo.ToString() + "---");
+                        if (numberTwo.Equals("") || numberOne.Equals(""))
                         {
-                            _t.Speak("O resultado de raiz de " + numberTwo.ToString() + "é de " + _calc.makeCalculation(numberOne + operation + numberTwo).ToString());
-                        }
-                        else if (oprt.Equals("^,2"))
-                        {
-                            _t.Speak("O resultado de " + numberOne.ToString() + "ao quadrado é de: " + _calc.makeCalculation(numberOne + operation + numberTwo).ToString());
+                            if (oprt.Equals("raiz"))
+                            {
+                                _t.Speak("O resultado de raiz de " + numberTwo.ToString() + "é de " + _calc.makeCalculation(numberOne + operation + numberTwo).ToString());
+                            }
+                            else if (oprt.Equals("^,2"))
+                            {
+                                _t.Speak("O resultado de " + numberOne.ToString() + "ao quadrado é de: " + _calc.makeCalculation(numberOne + operation + numberTwo).ToString());
+                            }
+                            else
+                            {
+                                _t.Speak("O resultado de " + numberOne.ToString() + "ao cubo é de: " + _calc.makeCalculation(numberOne + operation + numberTwo).ToString());
+                            }
                         }
                         else
                         {
-                            _t.Speak("O resultado de " + numberOne.ToString() + "ao cubo é de: " + _calc.makeCalculation(numberOne + operation + numberTwo).ToString());
+                            _t.Speak("O resultado de " + numberOne.ToString() + " " + getOperador(oprt) + " " + numberTwo.ToString() + " é " + _calc.makeCalculation(numberOne + operation + numberTwo).ToString());
                         }
                     }
-                    else
+                    else if (confidence >= 0.45 && confidence < 0.8)
                     {
-                        _t.Speak("O resultado de " + numberOne.ToString() + " " + getOperador(oprt) + " " + numberTwo.ToString() + " é " + _calc.makeCalculation(numberOne + operation + numberTwo).ToString());
-                    }
-                }
-                else if (confidence >= 0.45 && confidence < 0.8)
-                {
-                    numberOne = getNumberTranslated(1);
-                    numberTwo = getNumberTranslated(2);
-                    if (!oprt.Equals("")) operation = oprt + ",";
-                    if (numberTwo.Equals("") || numberOne.Equals(""))
-                    {
-                        if (oprt.Equals("raiz"))
+                        numberOne = getNumberTranslated(1);
+                        numberTwo = getNumberTranslated(2);
+                        if (!oprt.Equals("")) operation = oprt + ",";
+                        Console.WriteLine("----" + numberOne.ToString() + " " + getOperador(oprt) + " " + numberTwo.ToString() + "---");
+                        if (numberTwo.Equals("") || numberOne.Equals(""))
                         {
-                            _t.Speak("Deseja saber o resultado de raiz de " + numberTwo.ToString() + "certo?");
-                        }
-                        else if (oprt.Equals("^,2"))
-                        {
-                            _t.Speak("Deseja saber o resultado  de " + numberOne.ToString() + "ao quadrado certo?");
+                            if (oprt.Equals("raiz"))
+                            {
+                                _t.Speak("Deseja saber o resultado de raiz de " + numberTwo.ToString() + "certo?");
+                            }
+                            else if (oprt.Equals("^,2"))
+                            {
+                                _t.Speak("Deseja saber o resultado  de " + numberOne.ToString() + "ao quadrado certo?");
+                            }
+                            else
+                            {
+                                _t.Speak("Deseja saber o resultado de " + numberOne.ToString() + "ao cubo certo?");
+                            }
                         }
                         else
                         {
-                            _t.Speak("Deseja saber o resultado de " + numberOne.ToString() + "ao cubo certo?");
+                            _t.Speak("Deseja saber o resultado de " + numberOne.ToString() + " " + getOperador(oprt) + " " + numberTwo.ToString() + " certo?");
                         }
+                        _lastNum1 = numberOne;
+                        _lastNum2 = numberTwo;
+                        _lastOp = operation;
+                        _confirmation = true;
                     }
-                    else
+                    else if (confidence < 0.45)
                     {
-                        _t.Speak("Deseja saber o resultado de " + numberOne.ToString() + " " + getOperador(oprt) + " " + numberTwo.ToString() + " certo?");
+                        _t.Speak(chooseRandomSpeech("repetition"));
                     }
-                    _lastNum1 = numberOne;
-                    _lastNum2 = numberTwo;
-                    _lastOp = operation;
-                    _confirmation = true;
-                }
-                else if (confidence < 0.45)
-                {
-                    _t.Speak(chooseRandomSpeech("repetition"));
                 }
             }
         }
@@ -244,7 +242,7 @@ namespace AppGui
                 "Porque não tenta efetuar desde já uns calculos teste, como por exemplo, somar um numero com outro" };
 
             String[] goodbye = {
-                 "Ate amanhã, nem que seja para me dizer olá porque eu mereço!",
+                 "Ate amanhã, nem que seja para me dizer olá, porque eu merêço! Tenha um resto de um bom dia",
                 "Sempre às ordens ! Tenha um resto de um bom dia.",
                 "Espero ter ajudado, que tenha o resto de um bom dia." };
 
