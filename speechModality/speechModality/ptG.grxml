@@ -288,6 +288,8 @@
     <one-of>
       <item>Quanto é</item>
       <item>Quanto é que é</item>
+      <item>E quanto é que é</item>
+      <item>E então quanto é que é</item>
       <item> </item>
     </one-of>
   </rule>
