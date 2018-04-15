@@ -54,7 +54,6 @@ namespace AppGui
                 {
                     if (confirmation.Equals("sim"))
                     {
-                        Console.WriteLine("----" + _lastNum1 + " " + _lastOp + " " + _lastNum2 + "---");
                         _t.Speak("O resultado da operação é " + _calc.makeCalculation(_lastNum1 + _lastOp + _lastNum2).ToString());
                         _confirmation = false;
                     }
@@ -80,7 +79,6 @@ namespace AppGui
                         numberOne = getNumberTranslated(1);
                         numberTwo = getNumberTranslated(2);
                         if (!oprt.Equals("")) operation = oprt + ",";
-                        Console.WriteLine("----" + numberOne.ToString() + " " + getOperador(oprt) + " " + numberTwo.ToString() + "---");
                         _t.Speak("O resultado da operação é " + _calc.makeCalculation(numberOne + operation + numberTwo).ToString());
                     }
                     else if (confidence >= 0.80 && confidence < 0.90)
@@ -88,7 +86,6 @@ namespace AppGui
                         numberOne = getNumberTranslated(1);
                         numberTwo = getNumberTranslated(2);
                         if (!oprt.Equals("")) operation = oprt + ",";
-                        Console.WriteLine("----" + numberOne.ToString() + " " + getOperador(oprt) + " " + numberTwo.ToString() + "---");
                         if (numberTwo.Equals("") || numberOne.Equals(""))
                         {
                             if (oprt.Equals("raiz"))
@@ -114,7 +111,6 @@ namespace AppGui
                         numberOne = getNumberTranslated(1);
                         numberTwo = getNumberTranslated(2);
                         if (!oprt.Equals("")) operation = oprt + ",";
-                        Console.WriteLine("----" + numberOne.ToString() + " " + getOperador(oprt) + " " + numberTwo.ToString() + "---");
                         if (numberTwo.Equals("") || numberOne.Equals(""))
                         {
                             if (oprt.Equals("raiz"))
